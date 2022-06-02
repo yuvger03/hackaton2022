@@ -11,12 +11,15 @@ im=None
  
 def run1():
     cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
+    cam = cv2.VideoCapture("video_Trim.mp4")
     while True:
-        img_resp=urllib.request.urlopen(url)
-        imgnp=np.array(bytearray(img_resp.read()),dtype=np.uint8)
-        im = cv2.imdecode(imgnp,-1)
+        check, im = cam.read()
+        bbox, label, conf = cv.detect_common_objects(im)
+        num_of_people = len([l for l in label if l == 'person'])
+        print("num_of_people", num_of_people)
+        im = draw_bbox(im, bbox, label, conf)
  
-        cv2.imshow('live transmission',im)
+        cv2.imshow('detection',im)
         key=cv2.waitKey(5)
         if key==ord('q'):
             break
@@ -31,6 +34,8 @@ def run2():
         im = cv2.imdecode(imgnp,-1)
  
         bbox, label, conf = cv.detect_common_objects(im)
+        num_of_people = len([l for l in label if l == 'person'])
+        print("num_of_people", num_of_people)
         im = draw_bbox(im, bbox, label, conf)
  
         cv2.imshow('detection',im)
@@ -45,5 +50,5 @@ def run2():
 if __name__ == '__main__':
     print("started")
     with concurrent.futures.ProcessPoolExecutor() as executer:
-            # f1= executer.submit(run1)
-            f2= executer.submit(run2)
+            f1= executer.submit(run1)
+            # f2= executer.submit(run2)
