@@ -5,20 +5,24 @@ import cv2
 # bright = []
 
 
-def getBrightness(videoPath, bright):
-    cap = cv2.VideoCapture(videoPath)
-    i = 0
+def getBrightness(frames, bright):
+    # cap = cv2.VideoCapture(videoPath)
+    # i = 0
+    #
+    # while cap.isOpened():
+    #     ret, frame = cap.read()
+    #     if not ret:
+    #         break
+    #     if i % 200 == 0:
+    #         cv2.imwrite('frame' + str(i) + '.jpeg', frame)
+    #         bright.append(brightness('frame' + str(i) + '.jpeg'))
+    #         if i > 200 * 2 * 60 / 8:
+    #             bright.pop(0)
+    #     i += 1
 
-    while cap.isOpened():
-        ret, frame = cap.read()
-        if not ret:
-            break
-        if i % 200 == 0:
-            cv2.imwrite('frame' + str(i) + '.jpeg', frame)
-            bright.append(brightness('frame' + str(i) + '.jpeg'))
-            if i > 200 * 2 * 60 / 8:
-                bright.pop(0)
-        i += 1
+    for frame in frames:
+        # You may need to convert the color.
+        bright.append(brightness(frame))
 
 
 # def howMuchLight(bright, people):
@@ -50,4 +54,6 @@ def brightness(im_file):
 
 if __name__ == '__main__':
     # brightness(r"C:\Users\yuvge\OneDrive\Рабочий стол\אוניברסיטה\assembly\abbey-road-london.png")
-    getBrightness(r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4")
+    brights = []
+    getBrightness([r"C:\Users\liri\desktop\photo.jpg"], brights)
+    print(brights)

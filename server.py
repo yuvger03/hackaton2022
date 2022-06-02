@@ -1,4 +1,3 @@
-import time
 from os import listdir
 from os.path import isfile, join
 
@@ -10,18 +9,16 @@ import threading
 
 
 class StreetThread(threading.Thread):
-    def __init__(self, video):
+    def __init__(self, frames):
         super().__init__()
         self.bright = []
-        self.streetVideos = video
+        self.frames = frames
 
     def run(self):
-        for video in self.streetVideos:
-            print(video)
-            streetThread = threading.Thread(target=getBrightness, args=(video, self.bright))
-            streetThread.start()
-
-        time.sleep(15)
+        # streetThread = threading.Thread(target=getBrightness, args=(self.frames, self.bright))
+        # streetThread.start()
+        getBrightness(self.frames, self.bright)
+        # time.sleep(15)
         print(self.bright)
         meanBright = mean(self.bright)
         print(meanBright)
@@ -29,11 +26,10 @@ class StreetThread(threading.Thread):
 
 
 if __name__ == '__main__':
-    streets = [r"C:\Users\yuvge\PycharmProjects\hackaton2022\street1",
-               r"C:\Users\yuvge\PycharmProjects\hackaton2022\street2"]
+    streets = [r"C:\Users\liri\Desktop\street1", r"C:\Users\liri\Desktop\street2"]
     for streetName in streets:
         videos = [str(join(streetName, f)) for f in listdir(streetName)
-                  if (isfile(join(streetName, f)) and str(join(streetName, f)).split(".")[1] == "mp4")]
+                  if (isfile(join(streetName, f)) and str(join(streetName, f)).split(".")[1] == "jpg")]
         print(videos)
         thread = StreetThread(videos)
         thread.start()
