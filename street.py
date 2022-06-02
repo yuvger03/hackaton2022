@@ -2,7 +2,7 @@ import time
 
 from numpy import mean
 
-from brightness import bright, getBrightness
+from brightness import getBrightness
 import threading
 
 cameras = [r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4", r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4",

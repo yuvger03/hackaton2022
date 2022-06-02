@@ -1,12 +1,11 @@
 from PIL import Image, ImageStat
 import math
 import cv2
+# from server import StreetThread
+# bright = []
 
-bright = []
 
-
-def getBrightness(videoPath):
-    global bright
+def getBrightness(videoPath, bright):
     cap = cv2.VideoCapture(videoPath)
     i = 0
 
