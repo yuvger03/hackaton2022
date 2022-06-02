@@ -1,46 +1,31 @@
 import time
+from os import listdir
+from os.path import isfile, join
 
 from numpy import mean
 
 from brightness import bright, getBrightness
+from street import voltage
 import threading
 
-cameras = [r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4", r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4",
-           r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4"]
+streets = [r"street1", r"street2"]
 
 
-def voltage(meanBrightness, people):
-    timeNow = time.localtime()
-    hourNow = time.strftime("%H", timeNow)
-    minutesNow = time.strftime("%M", timeNow)
-    if (hourNow < '6' and minutesNow < '30') or (hourNow > '17' and minutesNow > '30'):
-        if meanBrightness < 180:
-            volt = 350
-        elif meanBrightness < 200:
-            volt = 200
-        else:
-            volt = 0
-
-        if people > 10:
-            volt += 50
-        elif people > 5:
-            volt += 25
-
-    else:
-        volt = 0
-
-    return volt
-
-
-if __name__ == '__main__':
-    for video in cameras:
-        thread = threading.Thread(target=getBrightness, args=(video,))
-        thread.start()
+def currStreet(streetVideos):
+    for video in streetVideos:
+        streetThread = threading.Thread(target=getBrightness, args=(video,))
+        streetThread.start()
 
     time.sleep(15)
     print(bright)
     meanBright = mean(bright)
     print(meanBright)
+    voltage(meanBright, 0)
 
 
+if __name__ == '__main__':
 
+    for street in streets:
+        videos = [str(join(street, f)) for f in listdir(street) if (isfile(join(street, f))
+                                                                    and str(join(street, f)).split(".")[1] == "mp4")]
+        thread = threading.Thread(target=currStreet, args=(videos,))
