@@ -9,7 +9,7 @@ from street import voltage
 from object_detection import run1, run2
 import threading
 import multiprocessing
-from lights import write_read
+from camera import write_read
 
 import time
 
