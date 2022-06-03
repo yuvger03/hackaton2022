@@ -24,7 +24,7 @@ def run1(path, cam_index):
         bbox, label, conf = cv.detect_common_objects(im)
         num_of_people = len([l for l in label if l == 'person'])
         people_num.append(num_of_people)
-        print("run2: ", max(people_num))
+        print("num_of_people - ", max(people_num))
         # print("num_of_people", num_of_people)
         im2 = draw_bbox(im, bbox, label, conf)
         if (int(time.time()) - old_time) % duration_in_sec == 0:
@@ -37,10 +37,10 @@ def run1(path, cam_index):
             frames = []
             people_num = []
 
-        # cv2.imshow('detection', im2)
-        # key = cv2.waitKey(5)
-        # if key == ord('q'):
-        #     break
+        cv2.imshow('detection', im2)
+        key = cv2.waitKey(5)
+        if key == ord('q'):
+            break
 
     # cv2.destroyAllWindows()
     # print(frames, max(people_num))
@@ -60,7 +60,7 @@ def run1(path, cam_index):
 
 
 def run2(path=r"C:\Users\liri\PycharmProjects\hackaton2022\street1", cam_index=1):
-    url = 'http://192.168.226.171/cam-lo.jpg'
+    url = 'http://192.168.207.171/cam-hi.jpg'
 
     cv2.namedWindow("detection", cv2.WINDOW_AUTOSIZE)
     # path = 'D:\check'
@@ -71,7 +71,6 @@ def run2(path=r"C:\Users\liri\PycharmProjects\hackaton2022\street1", cam_index=1
     people_num = []
     old_time = int(time.time())
     # os.chdir(path)
-    print("hello")
     while True:
         img_resp = urllib.request.urlopen(url)
         imgnp = np.array(bytearray(img_resp.read()), dtype=np.uint8)
@@ -80,7 +79,7 @@ def run2(path=r"C:\Users\liri\PycharmProjects\hackaton2022\street1", cam_index=1
         bbox, label, conf = cv.detect_common_objects(im)
         num_of_people = len([l for l in label if l == 'person'])
         people_num.append(num_of_people)
-        print("run2: ", max(people_num))
+        print("number of people - ", max(people_num))
         # print("num_of_people", num_of_people)
         im2 = draw_bbox(im, bbox, label, conf)
         if (int(time.time()) - old_time) % duration_in_sec == 0:

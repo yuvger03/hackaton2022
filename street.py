@@ -14,7 +14,7 @@ def voltage(meanBrightness, people):
     hourNow = int(time.strftime("%H", timeNow))
     minutesNow = int(time.strftime("%M", timeNow))
     totalTime = hourNow * 60 + minutesNow
-    print(hourNow, minutesNow, meanBrightness, people)
+    # print(hourNow, minutesNow, meanBrightness, people)
     if (totalTime < 6*60 + 30) or (totalTime > 17*60 + 30):
         if meanBrightness < 180:
             volt = 200

@@ -1,7 +1,6 @@
 from os import listdir
 from os.path import isfile, join
 
-import serial
 from numpy import mean
 
 from brightness import getBrightness
@@ -9,11 +8,10 @@ from street import voltage
 from object_detection import run1, run2
 import threading
 import multiprocessing
-from camera import write_read
 
 import time
 
-arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
+# arduino = serial.Serial(port='COM4', baudrate=115200, timeout=.1)
 
 # arduino.close()
 
@@ -32,11 +30,13 @@ class StreetThread(threading.Thread):
         # time.sleep(15)
         # print(self.bright)
         meanBright = mean(self.bright)
-        print(meanBright)
+        print("mean bright - ", meanBright)
         volt = voltage(meanBright, self.people)
-        print(volt)
+        print("volt - ", volt)
+        # with open(r"OneDrive - Bar-Ilan University - Students\volt.txt", "w") as voltFile:
+        #     voltFile.write(volt)
         # arduino.open()
-        write_read(str(volt))
+        # write_read(str(volt))
 
 
 def getDataVolt(streetNames):
@@ -67,7 +67,7 @@ def getDataVolt(streetNames):
 
 
 if __name__ == '__main__':
-    streets = [r"D:\check\Street1"]
+    streets = [r"C:\Users\liri\PycharmProjects\hackaton2022\street1"]
 
     i = 0
     for streetName in streets:
