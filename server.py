@@ -1,5 +1,3 @@
-import os
-import time
 from os import listdir
 from os.path import isfile, join
 
@@ -10,14 +8,10 @@ from street import voltage
 from object_detection import run1, run2
 import threading
 import multiprocessing
+from camera import write_read
 
-import serial
+
 import time
-
-
-ARDUINO = serial.Serial(port='COM5', baudrate=115200, timeout=.1)
-if not ARDUINO.isOpen():
-    ARDUINO.open()
 
 
 class StreetThread(threading.Thread):
@@ -37,13 +31,7 @@ class StreetThread(threading.Thread):
         print(meanBright)
         volt = voltage(meanBright, self.people)
         print(volt)
-        self.light(volt)
-
-    def light(self, x):
-        print("change light")
-        ARDUINO.write(bytes(str(x), 'utf-8'))
-        time.sleep(0.1)
-        print("finish change light")
+        write_read(volt)
 
 
 def getDataVolt(streetNames):
