@@ -17,9 +17,9 @@ def voltage(meanBrightness, people):
     print(hourNow, minutesNow, meanBrightness, people)
     if (totalTime < 6*60 + 30) or (totalTime > 17*60 + 30):
         if meanBrightness < 180:
-            volt = 350
-        elif meanBrightness < 200:
             volt = 200
+        elif meanBrightness < 200:
+            volt = 150
         else:
             volt = 0
 

@@ -7,9 +7,17 @@ from numpy import mean
 
 from brightness import getBrightness
 from street import voltage
-from object_detection import run2
+from object_detection import run1, run2
 import threading
 import multiprocessing
+
+import serial
+import time
+
+
+ARDUINO = serial.Serial(port='COM5', baudrate=115200, timeout=.1)
+if not ARDUINO.isOpen():
+    ARDUINO.open()
 
 
 class StreetThread(threading.Thread):
@@ -29,11 +37,18 @@ class StreetThread(threading.Thread):
         print(meanBright)
         volt = voltage(meanBright, self.people)
         print(volt)
+        self.light(volt)
+
+    def light(self, x):
+        print("change light")
+        ARDUINO.write(bytes(str(x), 'utf-8'))
+        time.sleep(0.1)
+        print("finish change light")
 
 
 def getDataVolt(streetNames):
     time.sleep(5)
-    durationInSec = 5
+    durationInSec = 10
 
     old_time = int(time.time())
     while True:
@@ -59,12 +74,11 @@ def getDataVolt(streetNames):
 
 
 if __name__ == '__main__':
-    streets = [r"C:\Users\liri\PycharmProjects\hackaton2022\street1",
-               r"C:\Users\liri\PycharmProjects\hackaton2022\street2"]
+    streets = [r"C:\Users\liri\PycharmProjects\hackaton2022\street1"]
 
     i = 0
     for streetName in streets:
-        thread_detect = multiprocessing.Process(target=run2, args=(streetName, i))
+        thread_detect = multiprocessing.Process(target=run1, args=(streetName, i))
         thread_detect.start()
         i += 1
 

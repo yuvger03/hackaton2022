@@ -60,7 +60,7 @@ def run1(path, cam_index):
 
 
 def run2(path=r"C:\Users\liri\PycharmProjects\hackaton2022\street1", cam_index=1):
-    url = 'http://192.168.207.171/cam-lo.jpg'
+    url = 'http://192.168.226.171/cam-lo.jpg'
 
     cv2.namedWindow("detection", cv2.WINDOW_AUTOSIZE)
     # path = 'D:\check'
