@@ -11,5 +11,5 @@ Light detection -
 python server.py
 ```
 
-Flood detection - 
+Flood detection -   
 We have a jupiter notebook that train the model to identify Flooding 
