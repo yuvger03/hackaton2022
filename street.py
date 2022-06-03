@@ -11,9 +11,11 @@ cameras = [r"C:\Users\yuvge\OneDrive\Рабочий стол\21.mp4", r"C:\Users
 
 def voltage(meanBrightness, people):
     timeNow = time.localtime()
-    hourNow = time.strftime("%H", timeNow)
-    minutesNow = time.strftime("%M", timeNow)
-    if (hourNow < '6' and minutesNow < '30') or (hourNow > '17' and minutesNow > '30'):
+    hourNow = int(time.strftime("%H", timeNow))
+    minutesNow = int(time.strftime("%M", timeNow))
+    totalTime = hourNow * 60 + minutesNow
+    print(hourNow, minutesNow, meanBrightness, people)
+    if (totalTime < 6*60 + 30) or (totalTime > 17*60 + 30):
         if meanBrightness < 180:
             volt = 350
         elif meanBrightness < 200:
