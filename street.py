@@ -39,7 +39,7 @@ if __name__ == '__main__':
         thread = threading.Thread(target=getBrightness, args=(video,))
         thread.start()
 
-    time.sleep(15)
-    print(bright)
-    meanBright = mean(bright)
-    print(meanBright)
+    # time.sleep(15)
+    # print(bright)
+    # meanBright = mean(bright)
+    # print(meanBright)
