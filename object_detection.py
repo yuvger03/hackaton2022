@@ -11,7 +11,7 @@ import time
 
 
 def run1(path, cam_index):
-    cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
+    # cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
 
     cam = cv2.VideoCapture(0)
     frames = []
@@ -37,12 +37,12 @@ def run1(path, cam_index):
             frames = []
             people_num = []
 
-        cv2.imshow('detection', im2)
-        key = cv2.waitKey(5)
-        if key == ord('q'):
-            break
+        # cv2.imshow('detection', im2)
+        # key = cv2.waitKey(5)
+        # if key == ord('q'):
+        #     break
 
-    cv2.destroyAllWindows()
+    # cv2.destroyAllWindows()
     # print(frames, max(people_num))
     return frames, max(people_num)
     #
