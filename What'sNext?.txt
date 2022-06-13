@@ -1,0 +1,4 @@
+All the detectors will be placed in specified folders.
+New detectors will be added.
+Panda library will be used to analyze the data and save it in MongoDB data base.
+The server code will be optimized.
